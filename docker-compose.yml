@@ -22,6 +22,11 @@ services:
       - './mongodb/data:/data/db'
       - './mongodb/entrypoints:/docker-entrypoint-initdb.d'
 
+  flask:
+    image: 127.0.0.1:5000/myadmin/flask-test_0.1
+    ports:
+      - 5001:5001
+
 secrets:
   mongodb_root_password:
     file: mongodb/.mongodb_root_password.secret
