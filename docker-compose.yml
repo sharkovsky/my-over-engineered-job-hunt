@@ -9,14 +9,25 @@ services:
     environment:
       MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongodb_root_password
       MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongodb_root_username
+      MONGO_INITDB_DATABASE: admin
+      MONGO_FLASK_USERNAME_FILE: /run/secrets/mongodb_flask_username
+      MONGO_FLASK_PASSWORD_FILE: /run/secrets/mongodb_flask_password
+      MONGO_DATABASE: test_db
     secrets:
       - mongodb_root_password
       - mongodb_root_username
+      - mongodb_flask_password
+      - mongodb_flask_username
     volumes:
       - './mongodb/data:/data/db'
+      - './mongodb/entrypoints:/docker-entrypoint-initdb.d'
 
 secrets:
   mongodb_root_password:
-    file: mongodb/.mongodb_root_password
+    file: mongodb/.mongodb_root_password.secret
   mongodb_root_username:
-    file: mongodb/.mongodb_root_username
+    file: mongodb/.mongodb_root_username.secret
+  mongodb_flask_password:
+    file: mongodb/.mongodb_flask_password.secret
+  mongodb_flask_username:
+    file: mongodb/.mongodb_flask_username.secret
