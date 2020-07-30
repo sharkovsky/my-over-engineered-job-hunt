@@ -1,8 +1,10 @@
 from flask import Flask, request
 from flask.json import jsonify
-from bson.json_util import dumps
-from bson.json_util import loads
 from pymongo import MongoClient
+from bson.json_util import dumps, loads
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 
@@ -23,6 +25,11 @@ db = client['test_db']
 def handle_jobs_requests():
     if request.method == 'GET':
         return jsonify(dumps(list(db.test_collections.find({}).limit(5))))
+    elif request.method == 'POST':
+        logging.info('Received POST request')
+        logging.info(request.data)
+        db.test_collections.insert_one(loads(request.data))
+        return request.data
     else:
         return 'Not yet supported'
 
