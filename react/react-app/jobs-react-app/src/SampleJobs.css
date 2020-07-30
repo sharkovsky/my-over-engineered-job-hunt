@@ -1,0 +1,18 @@
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 17%;
+  padding: 12px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 3px
+}
+
+a {
+  position: relative;
+  z-index: 1;
+}
+
+a:hover {
+  color: Blue;
+}

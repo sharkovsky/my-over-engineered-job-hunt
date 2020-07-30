@@ -1,0 +1,26 @@
+input[type=text], select, textarea {
+  width: 50%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+#jobDescriptionTextarea {
+  height: 150px;
+}
+
+form {
+  padding: 50px;
+}
+
+#submitFormButton {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #A1E8AF;
+  width: 52.25%;
+/*  position: relative;
+  left: 12px;
+*/
+}
