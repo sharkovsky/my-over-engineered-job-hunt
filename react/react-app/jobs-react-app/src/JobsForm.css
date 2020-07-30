@@ -24,3 +24,8 @@ form {
   left: 12px;
 */
 }
+
+#formContainer {
+  display: block;
+  clear: both;
+}
