@@ -24,7 +24,9 @@ db = client['test_db']
 @app.route("/jobs", methods=['GET', 'POST'])
 def handle_jobs_requests():
     if request.method == 'GET':
-        return jsonify(dumps(list(db.test_collections.find({}).limit(5))))
+        response = jsonify(dumps(list(db.test_collections.find({}).limit(5))))
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+        return response
     elif request.method == 'POST':
         logging.info('Received POST request')
         logging.info(request.data)
