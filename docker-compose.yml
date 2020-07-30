@@ -23,7 +23,7 @@ services:
       - './mongodb/entrypoints:/docker-entrypoint-initdb.d'
 
   flask:
-    image: 127.0.0.1:5000/myadmin/flask-test_0.5
+    image: 127.0.0.1:5000/myadmin/flask-test_1.0
     ports:
       - 5001:5001
     volumes:
@@ -31,6 +31,15 @@ services:
     secrets:
       - mongodb_flask_username
       - mongodb_flask_password
+
+  react:
+    image: 127.0.0.1:5000/myadmin/react-test_1.0
+    volumes:
+      - ./react/react-app/jobs-react-app:/jobs-react-app
+    tty: true
+    ports:
+      - 3000:3000
+      - 35729:35729
 
 secrets:
   mongodb_root_password:
