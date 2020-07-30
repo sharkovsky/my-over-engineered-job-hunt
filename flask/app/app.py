@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask.json import jsonify
 from flask_cors import CORS
+import pymongo
 from pymongo import MongoClient
 from bson.json_util import dumps, loads
 import logging
@@ -26,7 +27,8 @@ db = client['test_db']
 @app.route("/jobs", methods=['GET', 'POST'])
 def handle_jobs_requests():
     if request.method == 'GET':
-        response = jsonify(dumps(list(db.test_collections.find({}).limit(5))))
+        limit = int(request.args.get('limit')) if request.args.get('limit') else 5
+        response = jsonify(dumps(list(db.test_collections.find({}).sort('_id', pymongo.DESCENDING).limit(limit))))
         return response
     elif request.method == 'POST':
         logging.info('Received POST request')
