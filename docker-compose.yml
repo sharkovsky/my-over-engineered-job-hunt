@@ -33,7 +33,7 @@ services:
       - mongodb_flask_password
 
   react:
-    image: 127.0.0.1:5000/myadmin/react-test_1.0
+    image: 127.0.0.1:5000/myadmin/react-test_1.1
     volumes:
       - ./react/react-app/jobs-react-app:/jobs-react-app
     tty: true
