@@ -3,11 +3,11 @@ import './JobsForm.css'
 
 class JobsForm extends React.Component {
   state = {
-    title: null,
-    company: null,
-    location: null,
-    description: null,
-    link: null
+    title: '',
+    company: '',
+    location: '',
+    description: '',
+    link: ''
      };
 
   handleSubmit = async (event) => {
@@ -22,15 +22,14 @@ class JobsForm extends React.Component {
       window.location.reload(false)
     }
     req.send(JSON.stringify(this.state))
-
   };
 
 	render() {
   	return (
-      <div class='container' id='formContainer'>
+      <div className='container' id='formContainer'>
         <form onSubmit={this.handleSubmit}>
           <span id='submitFormTitle'><h1>Insert New Job</h1></span>
-          <div class='row'>
+          <div className='row'>
           <input
             type="text"
             value={this.state.title}
@@ -39,7 +38,7 @@ class JobsForm extends React.Component {
             required
           />
           </div>
-          <div class='row'>
+          <div className='row'>
           <input
             type="text"
             value={this.state.company}
@@ -48,7 +47,7 @@ class JobsForm extends React.Component {
             required
           />
           </div>
-          <div class='row'>
+          <div className='row'>
           <input
             type="text"
             value={this.state.location}
@@ -57,7 +56,7 @@ class JobsForm extends React.Component {
             required
           />
           </div>
-          <div class='row'>
+          <div className='row'>
           <input
             type="text"
             value={this.state.link}
@@ -66,7 +65,7 @@ class JobsForm extends React.Component {
             required
           />
           </div>
-          <div class='row'>
+          <div className='row'>
           <textarea
             id='jobDescriptionTextarea'
             value={this.state.description}
@@ -75,7 +74,7 @@ class JobsForm extends React.Component {
             required
           />
           </div>
-          <button id='submitFormButton'>Add to jobs database</button>
+          <button type='Submit' id='submitFormButton'>Add to jobs database</button>
         </form>
       </div>
     );
