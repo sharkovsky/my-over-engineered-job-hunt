@@ -32,7 +32,7 @@ class SampleJobs extends React.Component {
             if(state['readMore'][i])
               desc = el['description']
             else
-              desc = el['description'].substr(0,4)
+              desc = el['description'].substr(0,60) + ' '
           }
           else
             desc = ''
