@@ -73,8 +73,8 @@ class LineChart extends Component {
       return ''
 
     const chartOptions = this.state['chartOptions'];
-    console.log('Rendering Sankey')
-    console.log(chartOptions)
+    //console.log('Rendering Sankey')
+    //console.log(chartOptions)
 
     return (
       <div>
