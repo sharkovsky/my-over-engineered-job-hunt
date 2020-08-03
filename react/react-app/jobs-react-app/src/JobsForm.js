@@ -18,6 +18,9 @@ class JobsForm extends React.Component {
     req.open('POST', url, true);
     req.setRequestHeader("Content-Type", "application/json");
     req.setRequestHeader("Access-Control-Allow-Origin", "*");
+    req.onload = () => {
+      window.location.reload(false)
+    }
     req.send(JSON.stringify(this.state))
 
   };
