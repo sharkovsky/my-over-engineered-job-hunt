@@ -27,13 +27,20 @@ db = client['test_db']
 @app.route("/jobs", methods=['GET', 'POST'])
 def handle_jobs_requests():
     if request.method == 'GET':
+        minimum_schema_version = '1.0'
+        get_filter = {'schema_version': {'$gte': minimum_schema_version}}
         limit = int(request.args.get('limit')) if request.args.get('limit') else 5
-        response = jsonify(dumps(list(db.test_collections.find({}).sort('_id', pymongo.DESCENDING).limit(limit))))
+        response = jsonify(dumps(list(db.test_collections.find(get_filter).sort('_id', pymongo.DESCENDING).limit(limit))))
         return response
     elif request.method == 'POST':
         logging.info('Received POST request')
-        logging.info(request.data)
-        db.test_collections.insert_one(loads(request.data))
+        new_job_data = loads(request.data)
+        if 'test_app' in new_job_data['title']:
+            new_job_data.update({'schema_version': '0.1'})
+        else:
+            new_job_data.update({'schema_version': '1.0'})
+        logging.info(new_job_data)
+        db.test_collections.insert_one(new_job_data)
         return request.data
     else:
         return 'Not yet supported'
