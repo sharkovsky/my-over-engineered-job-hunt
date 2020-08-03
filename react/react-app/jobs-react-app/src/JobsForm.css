@@ -20,6 +20,7 @@ form {
   border-radius: 4px;
   background-color: #A1E8AF;
   width: 52.25%;
+  z-index: 1;
 /*  position: relative;
   left: 12px;
 */
