@@ -8,7 +8,7 @@ class SampleJobs extends React.Component {
   }
 
   componentDidMount() {
-    var url = 'http://localhost:5001/jobs?limit=5'
+    var url = 'http://localhost:5001/api/jobs?limit=5'
     var req = new XMLHttpRequest();
     req.overrideMimeType("application/json");
     req.open('GET', url, true);

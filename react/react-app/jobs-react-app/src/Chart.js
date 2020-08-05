@@ -9,7 +9,7 @@ class LineChart extends Component {
   }
 
   componentDidMount() {
-    var url = 'http://localhost:5001/jobs'
+    var url = 'http://localhost:5001/api/jobs'
     var req = new XMLHttpRequest();
     req.overrideMimeType("application/json");
     req.open('GET', url, true);

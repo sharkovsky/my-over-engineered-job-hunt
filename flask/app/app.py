@@ -23,14 +23,15 @@ client = MongoClient('jobs_db',
         authSource='test_db')
 
 db = client['test_db']
+default_collection = db.test_collections
 
-@app.route("/jobs", methods=['GET', 'POST'])
+@app.route("/api/jobs", methods=['GET', 'POST'])
 def handle_jobs_requests():
     if request.method == 'GET':
         minimum_schema_version = '1.0'
         get_filter = {'schema_version': {'$gte': minimum_schema_version}}
         limit = int(request.args.get('limit')) if request.args.get('limit') else 5
-        response = jsonify(dumps(list(db.test_collections.find(get_filter).sort('_id', pymongo.DESCENDING).limit(limit))))
+        response = jsonify(dumps(list(default_collection.find(get_filter).sort('_id', pymongo.DESCENDING).limit(limit))))
         return response
     elif request.method == 'POST':
         logging.info('Received POST request')
@@ -40,7 +41,7 @@ def handle_jobs_requests():
         else:
             new_job_data.update({'schema_version': '1.0'})
         logging.info(new_job_data)
-        db.test_collections.insert_one(new_job_data)
+        default_collection.insert_one(new_job_data)
         return request.data
     else:
         return 'Not yet supported'
