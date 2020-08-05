@@ -4,6 +4,12 @@ input[type=text], select, textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: vertical;
+  margin: 1px;
+}
+
+.css-2b097c-container {
+  width: 52.25%;
+  margin: 1px;
 }
 
 #jobDescriptionTextarea {
