@@ -12,7 +12,9 @@ class JobsForm extends React.Component {
     location: '',
     selected_location: {value: '', label: 'Select or Insert Location'},
     description: '',
-    link: ''
+    link: '',
+    unique_links: [],
+    form_can_be_submitted: true
      };
 
   componentDidMount() {
@@ -21,14 +23,16 @@ class JobsForm extends React.Component {
     req.overrideMimeType("application/json");
     req.open('GET', url, true);
     req.onload  = () => {
-     var jsonResponse = JSON.parse(JSON.parse(req.responseText));
-     const unique_locations = [...new Set((jsonResponse.map(item => item.location)))]
-     const unique_titles = [...new Set((jsonResponse.map(item => item.title)))]
-     const unique_companies = [...new Set((jsonResponse.map(item => item.company)))]
-     this.setState({
-      location_options: unique_locations.map(item => ({value: item, label: item})),
-      title_options: unique_titles.map(item => ({value: item, label: item})),
-      company_options: unique_companies.map(item => ({value: item, label: item}))
+      var jsonResponse = JSON.parse(JSON.parse(req.responseText));
+      const unique_locations = [...new Set((jsonResponse.map(item => item.location)))]
+      const unique_titles = [...new Set((jsonResponse.map(item => item.title)))]
+      const unique_companies = [...new Set((jsonResponse.map(item => item.company)))]
+      const unique_links = [...new Set((jsonResponse.map(item => item.link)))]
+      this.setState({
+        location_options: unique_locations.map(item => ({value: item, label: item})),
+        title_options: unique_titles.map(item => ({value: item, label: item})),
+        company_options: unique_companies.map(item => ({value: item, label: item})),
+        unique_links: unique_links
      })
     };
     req.send();
@@ -36,8 +40,12 @@ class JobsForm extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+    if (!this.form_can_be_submitted) {
+      window.alert('Form was not submitted. Most likely a pre-existing job link was provided.')
+      return;
+    }
     //console.log(this.state)
-    var url = 'http://localhost:5001/jobs'
+    var url = 'http://localhost:5001/api/jobs';
     var req = new XMLHttpRequest();
     req.open('POST', url, true);
     req.setRequestHeader("Content-Type", "application/json");
@@ -49,14 +57,25 @@ class JobsForm extends React.Component {
       Object.entries(this.state)
       .filter(([key]) => ['title', 'location', 'company', 'link', 'description'].includes(key))
     );
-    console.log('Sending')
-    console.log(to_send)
+    //console.log('Sending')
+    //console.log(to_send)
     req.send(JSON.stringify(to_send))
+  };
+
+  handleNewLink = (event) => {
+    this.form_can_be_submitted = true;
+    document.getElementById("inputLink").style.backgroundColor = '#ffffff';
+    if (this.state.unique_links.includes(event.target.value)) {
+      console.log('Error: this link already exists. The form will not be submitted.')
+      this.form_can_be_submitted = false;
+      document.getElementById("inputLink").style.backgroundColor = '#f45b5b';
+    }
+    this.setState({link: event.target.value })
   };
 
 	render() {
 	  //console.log('Render Form')
-	  console.log(this.state)
+	  //console.log(this.state)
   	return (
       <div className='container' id='formContainer'>
         <form onSubmit={this.handleSubmit}>
@@ -88,8 +107,9 @@ class JobsForm extends React.Component {
           <div className='row'>
           <input
             type="text"
+            id="inputLink"
             value={this.state.link}
-            onChange={event => this.setState({ link: event.target.value })}
+            onChange={this.handleNewLink}
             placeholder="Link"
             required
           />
