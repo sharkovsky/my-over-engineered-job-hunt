@@ -23,7 +23,7 @@ client = MongoClient('jobs_db',
         authSource='test_db')
 
 db = client['test_db']
-default_collection = db.test_collections
+default_collection = db.checco_saved_jobs
 
 @app.route("/api/jobs", methods=['GET', 'POST'])
 def handle_jobs_requests():
