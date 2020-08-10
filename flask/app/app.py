@@ -30,8 +30,19 @@ def handle_jobs_requests():
     if request.method == 'GET':
         minimum_schema_version = '1.0'
         get_filter = {'schema_version': {'$gte': minimum_schema_version}}
-        limit = int(request.args.get('limit')) if request.args.get('limit') else 5
-        response = jsonify(dumps(list(default_collection.find(get_filter).sort('_id', pymongo.DESCENDING).limit(limit))))
+        limit = request.args.get('limit')
+        if limit:
+            response = jsonify(
+                dumps(
+                    list(
+                        default_collection.find(get_filter).sort('_id', pymongo.DESCENDING).limit(int(limit))
+                    )))
+        else:
+            response = jsonify(
+                dumps(
+                    list(
+                        default_collection.find(get_filter).sort('_id', pymongo.DESCENDING)
+                    )))
         return response
     elif request.method == 'POST':
         logging.info('Received POST request')
