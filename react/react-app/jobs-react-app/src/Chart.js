@@ -82,6 +82,7 @@ class LineChart extends Component {
           highcharts={Highcharts}
           options={chartOptions}
         />
+      Total number of jobs: {this.state['all-jobs'].length}
       </div>
     )
   }
