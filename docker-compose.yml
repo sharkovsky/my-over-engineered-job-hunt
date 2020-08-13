@@ -23,7 +23,7 @@ services:
       - './mongodb/entrypoints:/docker-entrypoint-initdb.d'
 
   flask:
-    image: 127.0.0.1:5000/myadmin/flask-test_1.0
+    image: 127.0.0.1:5000/myadmin/flask-test_1.1
     ports:
       - 5001:5001
     volumes:

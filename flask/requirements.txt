@@ -1,3 +1,6 @@
 Flask==1.1.2
 pymongo==3.10.1
 flask-cors==3.0.7
+nltk==3.5
+pandas==1.0.1
+stop-words==2018.7.23
