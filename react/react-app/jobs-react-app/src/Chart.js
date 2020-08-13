@@ -9,7 +9,7 @@ class LineChart extends Component {
   }
 
   componentDidMount() {
-    var url = 'http://localhost:5001/api/jobs'
+    var url = 'http://localhost:5001/api/jobs?limit=30'
     var req = new XMLHttpRequest();
     req.overrideMimeType("application/json");
     req.open('GET', url, true);
@@ -77,7 +77,7 @@ class LineChart extends Component {
     //console.log(chartOptions)
 
     return (
-      <div>
+      <div className="charts-container">
         <HighchartsReact
           highcharts={Highcharts}
           options={chartOptions}
