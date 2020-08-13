@@ -37,7 +37,6 @@ class SampleJobs extends React.Component {
           else
             desc = ''
           return (
-            <div className='column'>
               <div className='card'>
                 <h4>Title</h4> {el['title']}
                 <h4>Company</h4> {el['company']}
@@ -51,7 +50,6 @@ class SampleJobs extends React.Component {
                       ReadMoreState[i] = !ReadMoreState[i]
                       instance.setState({'readMore': ReadMoreState})}}> Read More</a>
               </div>
-            </div>
             );
         }
       )
@@ -63,10 +61,8 @@ class SampleJobs extends React.Component {
 	render() {
 	  console.log(this.state)
   	return (
-  	  <div className='container'>
-        <div className='row'>
+  	  <div className='job-cards-container'>
   	    {this.renderState(this)}
-        </div>
   	  </div>
     );
   }

@@ -1,11 +1,16 @@
-/* Float four columns side by side */
-.column {
-  float: left;
-  width: 17%;
-  padding: 12px 12px;
-  border: 1px solid #ccc;
+.job-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card {
+  flex: 0 1 220px;
+  box-shadow: 6px 6px 10px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  margin: 3px;
+  max-width: 300px;
   border-radius: 4px;
-  margin: 3px
+  padding: 3px;
 }
 
 a {
